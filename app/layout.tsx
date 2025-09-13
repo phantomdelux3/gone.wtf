@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono , Noto_Sans } from "next/font/google";
 import "./globals.css";
+import BgPannel from "./_components/BgPannel";
+import Header from "./_components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
   subsets: ["latin"],
 });
 
@@ -25,9 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`p-3 md:p-5 ${geistSans.variable} ${notoSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Header />
+        <BgPannel>
+          {children}
+        </BgPannel>
       </body>
     </html>
   );
