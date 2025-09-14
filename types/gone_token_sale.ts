@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/gone_token_sale.json`.
  */
 export type GoneTokenSale = {
-  "address": "2qfFwN6Mkn8bnPQpXocDiDFWC79PCNaUrus1y7Ac2jv2",
+  "address": "7CaNmSTwdReV7HTPQo8k2AKrKjhF8FhmQERMPBoUyT7z",
   "metadata": {
     "name": "goneTokenSale",
     "version": "0.1.0",
@@ -218,10 +218,6 @@ export type GoneTokenSale = {
           "type": "u64"
         },
         {
-          "name": "decimals",
-          "type": "u8"
-        },
-        {
           "name": "minPurchase",
           "type": "u64"
         },
@@ -232,16 +228,16 @@ export type GoneTokenSale = {
       ]
     },
     {
-      "name": "syncTokensRemaining",
+      "name": "syncTokens",
       "discriminator": [
-        28,
-        91,
-        201,
-        190,
-        2,
-        216,
-        80,
-        129
+        193,
+        118,
+        220,
+        73,
+        34,
+        194,
+        157,
+        51
       ],
       "accounts": [
         {
@@ -306,12 +302,6 @@ export type GoneTokenSale = {
           "name": "rate",
           "type": {
             "option": "u64"
-          }
-        },
-        {
-          "name": "decimals",
-          "type": {
-            "option": "u8"
           }
         },
         {
@@ -481,10 +471,6 @@ export type GoneTokenSale = {
           {
             "name": "rate",
             "type": "u64"
-          },
-          {
-            "name": "decimals",
-            "type": "u8"
           },
           {
             "name": "minPurchase",

@@ -1,5 +1,5 @@
 {
-  "address": "2qfFwN6Mkn8bnPQpXocDiDFWC79PCNaUrus1y7Ac2jv2",
+  "address": "7CaNmSTwdReV7HTPQo8k2AKrKjhF8FhmQERMPBoUyT7z",
   "metadata": {
     "name": "gone_token_sale",
     "version": "0.1.0",
@@ -212,10 +212,6 @@
           "type": "u64"
         },
         {
-          "name": "decimals",
-          "type": "u8"
-        },
-        {
           "name": "min_purchase",
           "type": "u64"
         },
@@ -226,16 +222,16 @@
       ]
     },
     {
-      "name": "sync_tokens_remaining",
+      "name": "sync_tokens",
       "discriminator": [
-        28,
-        91,
-        201,
-        190,
-        2,
-        216,
-        80,
-        129
+        193,
+        118,
+        220,
+        73,
+        34,
+        194,
+        157,
+        51
       ],
       "accounts": [
         {
@@ -300,12 +296,6 @@
           "name": "rate",
           "type": {
             "option": "u64"
-          }
-        },
-        {
-          "name": "decimals",
-          "type": {
-            "option": "u8"
           }
         },
         {
@@ -475,10 +465,6 @@
           {
             "name": "rate",
             "type": "u64"
-          },
-          {
-            "name": "decimals",
-            "type": "u8"
           },
           {
             "name": "min_purchase",
