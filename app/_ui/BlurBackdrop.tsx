@@ -31,14 +31,12 @@ const BlurBackdrop: React.FC<BlurBackdropProps> = ({
     '3xl': 'backdrop-blur-3xl',
   };
 
-  const positionClass = fixed ? 'fixed' : 'absolute';
 
   return (
     <div
       className={cn(
         'bg-white/10 backdrop-blur-md w-fit h-fit p-2 rounded-lg',
         blurClasses[blur],
-        positionClass,
         'flex items-center justify-center',
         'transition-opacity duration-300 ease-in-out',
         className

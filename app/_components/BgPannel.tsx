@@ -5,7 +5,7 @@ export default function BgPannel({
 }) {
     return (
         <div>
-            <div className="panel relative rounded-[20px] pt-10" style={{ clipPath: "url(#clip-frame)" }}>
+            <div className="panel relative rounded-[20px] pt-10">
                 {/* Glow Gradients */}
                 <div className="absolute top-0 -translate-y-1/2 h-full w-2/3 rounded-full bg-glow-left/80 mix-blend-screen blur-[150px] filter" />
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[80%] h-2/3 w-2/3 rounded-full bg-glow-center/70 mix-blend-screen blur-[150px] filter" />
