@@ -3,6 +3,7 @@
   "symbol": "GONE",
   "description": "The official GONE token on Solana.",
   "image": "https://lh3.googleusercontent.com/pw/AP1GczN9foGq_utz64zQ1kLsFY_emgFMFuVy7yKPbCXz7Svso37XLJ1xeKx3kiY880oMW8pVlTdzretysFraJjhU0lQfSKIVHQUVbO6cBzFjK2OnWS4CotQNju2rVp0sxe3_acJgy_YgWCYAwYCT06N7UBo=w512-h512-s-no-gm?authuser=0",
+  "uri": "https://gone-wtf.netlify.app/gone.json",
   "external_url": "https://gone.wtf",
   "socials": {
     "telegram": "https://t.me/gonedotwtf/",
