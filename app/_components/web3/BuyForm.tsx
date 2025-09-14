@@ -201,10 +201,9 @@ export const BuyForm: FC = () => {
 function parseAnchorError(e: unknown) {
   const err = e as { error?: { errorMessage?: string }; message?: string };
   const msg = err.error?.errorMessage || err.message || 'Transaction failed';
-  if (msg.includes('SaleInactive')) return 'Sale is not active';
-  if (msg.includes('BelowMinPurchase')) return 'Below minimum purchase';
-  if (msg.includes('AboveMaxPurchase')) return 'Above maximum purchase';
-  if (msg.includes('WhitelistRequired')) return 'Wallet not whitelisted';
-  if (msg.includes('InsufficientTokens')) return 'Sold out';
+  if (msg.includes('saleInactive')) return 'Sale is not active';
+  if (msg.includes('belowMinPurchase')) return 'Below minimum purchase';
+  if (msg.includes('aboveMaxPurchase')) return 'Above maximum purchase';
+  if (msg.includes('insufficientTokens')) return 'Sold out';
   return msg;
 }

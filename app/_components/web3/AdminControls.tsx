@@ -22,7 +22,7 @@ type UpdateSaleArgsStrict = [
   (boolean | null) | undefined,
 ];
 
-type SyncTokensRemainingAccountsStrict = {
+type SyncTokensAccountsStrict = {
   sale: anchor.web3.PublicKey;
   admin: anchor.web3.PublicKey;
   vault: anchor.web3.PublicKey;
@@ -108,12 +108,12 @@ export const AdminControls: FC<AdminControlsProps> = ({ adminKey }) => {
       const [salePdaKey] = salePda(wallet.publicKey, program.programId);
       const [vaultPdaKey] = vaultPda(salePdaKey, program.programId);
 
-      await program.methods.syncTokensRemaining()
+      await program.methods.syncTokens()
         .accounts({
           sale: salePdaKey,
           admin: wallet.publicKey,
           vault: vaultPdaKey,
-        } as SyncTokensRemainingAccountsStrict).rpc();
+        } as SyncTokensAccountsStrict).rpc();
 
       toast.success('Tokens remaining synced successfully!');
     } catch (error) {

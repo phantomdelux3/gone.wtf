@@ -18,7 +18,7 @@ async function setupCompleteTokenSale() {
 
     console.log("Program ID:", program.programId.toString());
     // 2. Token mint address (replace with your actual mint)
-    const goneMint = new PublicKey("7aRd3noL6Qjc9Vpy6GJTLbNenz7iTngZyQsNiLbxa1UQ");
+    const goneMint = new PublicKey(process.env.NEXT_PUBLIC_PROGRAM_ID);
 
     // 3. Find PDAs
     const [salePDA] = await PublicKey.findProgramAddress(
