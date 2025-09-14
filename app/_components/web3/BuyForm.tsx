@@ -8,6 +8,7 @@ import {
   PublicKey,
   SystemProgram,
   LAMPORTS_PER_SOL,
+  TransactionInstruction,
 } from '@solana/web3.js';
 import {
   getAssociatedTokenAddress,
@@ -18,7 +19,7 @@ import {
   salePda,
   vaultPda,
   vaultAuthPda,
-  whitelistPda,
+  // whitelistPda,
 } from '@/lib/findPda';
 
 type SaleState = {
@@ -29,6 +30,17 @@ type SaleState = {
   isActive: boolean;
   admin: PublicKey;
 };
+
+interface BuyTokenAccounts {
+  sale: PublicKey;
+  vault: PublicKey;
+  vaultAuthority: PublicKey;
+  buyer: PublicKey;
+  buyerTokenAccount: PublicKey;
+  adminTreasury: PublicKey;
+  tokenProgram: PublicKey;
+  systemProgram: PublicKey;
+}
 
 export const BuyForm: FC = () => {
   const wallet = useWallet();
@@ -49,6 +61,11 @@ export const BuyForm: FC = () => {
         }
         const adminPubkey = new PublicKey(process.env.NEXT_PUBLIC_ADMIN_PUBKEY!);
         console.log('Admin PublicKey:', adminPubkey.toBase58());
+
+        if (!program) {
+          console.error("Program is null, cannot fetch sale PDA.");
+          return;
+        }
 
         const [salePdaKey] = salePda(adminPubkey, program.programId);
         console.log('Derived Sale PDA Key:', salePdaKey.toBase58());
@@ -77,7 +94,7 @@ export const BuyForm: FC = () => {
   // --- 2. handler ---
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!wallet.publicKey) return;
+    if (!wallet.publicKey || !program) return;
     const solBN = new BN(Number(solInput) * LAMPORTS_PER_SOL);
     if (solBN.lt(sale.min) || solBN.gt(sale.max)) {
       toast.error(`Must be between ${sale.min.div(new BN(LAMPORTS_PER_SOL)).toString()} – ${sale.max.div(new BN(LAMPORTS_PER_SOL)).toString()} SOL`);
@@ -92,7 +109,7 @@ export const BuyForm: FC = () => {
         wallet.publicKey
       );
 
-      const ix: any[] = [];
+      const ix: TransactionInstruction[] = [];
       // create ATA if not exist
       const info = await program.provider.connection.getAccountInfo(buyerAta);
       if (!info) {
@@ -107,7 +124,7 @@ export const BuyForm: FC = () => {
       }
 
       const lamports = new BN(Number(solInput) * LAMPORTS_PER_SOL);
-      const accounts = {
+      const accounts: BuyTokenAccounts = {
         sale: saleKey,
         vault: vaultKey,
         vaultAuthority: vauthKey,
@@ -116,7 +133,7 @@ export const BuyForm: FC = () => {
         adminTreasury: sale.admin,
         tokenProgram: TOKEN_PROGRAM_ID,
         systemProgram: SystemProgram.programId,
-      } as any;
+      };
 
       // whitelist PDA only if whitelist enabled
       // Removed whitelist functionality as per user's request.
@@ -124,7 +141,11 @@ export const BuyForm: FC = () => {
       //   const [wlKey] = whitelistPda(saleKey, wallet.publicKey, program.programId);
       //   accounts.whitelistEntry = wlKey;
       // }
-
+      if (!program.methods.buyTokens) {
+        console.error("buyTokens method is not available on program.");
+        toast.error("Program not ready. Please try again.");
+        return;
+      }
       const tx = await program.methods
         .buyTokens(lamports)
         .accounts(accounts)
@@ -133,7 +154,7 @@ export const BuyForm: FC = () => {
 
       toast.success(`Success! Tx: ${tx.slice(0, 6)}…`);
       setSolInput('');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       toast.error(parseAnchorError(err));
     }
@@ -177,8 +198,9 @@ export const BuyForm: FC = () => {
 };
 
 // ---------- helpers ----------
-function parseAnchorError(e: any) {
-  const msg = e.error?.errorMessage || e.message || 'Transaction failed';
+function parseAnchorError(e: unknown) {
+  const err = e as { error?: { errorMessage?: string }; message?: string };
+  const msg = err.error?.errorMessage || err.message || 'Transaction failed';
   if (msg.includes('SaleInactive')) return 'Sale is not active';
   if (msg.includes('BelowMinPurchase')) return 'Below minimum purchase';
   if (msg.includes('AboveMaxPurchase')) return 'Above maximum purchase';

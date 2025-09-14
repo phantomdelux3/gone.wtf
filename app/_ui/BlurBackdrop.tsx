@@ -10,7 +10,6 @@ interface BlurBackdropProps {
   opacity?: number;
   onClick?: () => void;
   zIndex?: number;
-  fixed?: boolean;
 }
 
 const BlurBackdrop: React.FC<BlurBackdropProps> = ({
@@ -20,7 +19,6 @@ const BlurBackdrop: React.FC<BlurBackdropProps> = ({
   opacity = 0.1,
   onClick,
   zIndex = 40,
-  fixed = true,
 }) => {
   const blurClasses = {
     sm: 'backdrop-blur-sm',

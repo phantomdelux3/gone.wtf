@@ -5,10 +5,10 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import * as anchor from '@coral-xyz/anchor';
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { toast } from 'react-hot-toast';
-import { salePda, vaultPda, vaultAuthPda } from '@/lib/findPda';
+import { salePda, vaultPda } from '@/lib/findPda';
 // import { InitializeSaleAccounts } from '@/types/gone_token_sale';
-import { GoneTokenSale } from '@/types/gone_token_sale';
-import { Program } from '@coral-xyz/anchor';
+// Removed unused import: import { GoneTokenSale } from '@/types/gone_token_sale';
+// Removed unused import: import { Program } from '@coral-xyz/anchor';
 
 type UpdateSaleAccountsStrict = {
   sale: anchor.web3.PublicKey;

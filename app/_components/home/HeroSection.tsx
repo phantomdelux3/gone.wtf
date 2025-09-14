@@ -35,7 +35,7 @@ export default function HeroSection() {
                     <h2 className="text-white/60 text-sm md:text-base mx-auto mb-8 max-w-xl px-10 md:px-0">Regain your privacy on Solana by using our simple and secure protocol.</h2>
                 </div>
                 <div className="flex justify-center">
-                    <BlurBackdrop className="rounded-2xl p-0" fixed={false}>
+                    <BlurBackdrop className="rounded-2xl p-0">
                         <Button
                             variant="outline"
                             size="md"
