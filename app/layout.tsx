@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
-import BgPannel from "./_components/BgPannel";
+import BgPannel from "./_components/bgPanel/BgPanel";
 import Header from "./_components/Header";
 import { SolanaProvider } from "./_components/web3/SolanaProvider";
+import Providers from "./_components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,13 +36,13 @@ export default function RootLayout({
       <body
         className={`p-3 md:p-5 ${geistSans.variable} ${notoSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SolanaProvider
-
-        >
-          <Header />
-          <BgPannel>
-            {children}
-          </BgPannel>
+        <SolanaProvider>
+          <Providers>
+            <Header />
+            <BgPannel>
+              {children}
+            </BgPannel>
+          </Providers>
         </SolanaProvider>
       </body>
     </html>

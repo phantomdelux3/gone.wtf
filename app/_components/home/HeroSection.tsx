@@ -2,13 +2,15 @@
 
 import BlurBackdrop from "@/app/_ui/BlurBackdrop";
 import Button from "@/app/_ui/Button";
+import Link from "next/link";
 
 export default function HeroSection() {
     const handleLaunchApp = () => {
         window.open('https://gone.wtf/mixer', '_blank');
     };
+
     return (
-        <div className="flex justify-center items-center w-full min-h-screen">
+        <div className="flex justify-center items-center w-full h-dvh">
             <div className="text-center space-y-8">
                 <div>
                     <div className="flex justify-center mb-1">
@@ -34,7 +36,7 @@ export default function HeroSection() {
                     </h1>
                     <h2 className="text-white/60 text-sm md:text-base mx-auto mb-8 max-w-xl px-10 md:px-0">Regain your privacy on Solana by using our simple and secure protocol.</h2>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center gap-4">
                     <BlurBackdrop className="rounded-2xl p-0">
                         <Button
                             variant="outline"
@@ -46,6 +48,19 @@ export default function HeroSection() {
                                 Launch App
                             </span>
                         </Button>
+                    </BlurBackdrop>
+                    <BlurBackdrop className="rounded-2xl p-0">
+                        <Link href="/#buytoken">
+                            <Button
+                                variant="outline"
+                                size="md"
+                                className="rounded-2xl cursor-pointer"
+                            >
+                                <span className="bg-gradient-to-r from-dark-text-from to-dark-text-to bg-clip-text text-transparent">
+                                    Buy Token
+                                </span>
+                            </Button>
+                        </Link>
                     </BlurBackdrop>
                 </div>
             </div>

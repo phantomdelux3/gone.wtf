@@ -19,7 +19,6 @@ import {
   salePda,
   vaultPda,
   vaultAuthPda,
-  // whitelistPda,
 } from '@/lib/findPda';
 
 type SaleState = {

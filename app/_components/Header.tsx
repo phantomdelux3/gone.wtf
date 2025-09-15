@@ -10,7 +10,7 @@ const WalletMultiButtonDynamic = dynamic(
 
 export default function Header() {
     return (
-        <div className="absolute top-0 left-0 md:mt-5 p-8 md:p-[1.7vw] md:px-[8.5vw] w-full flex justify-between items-center">
+        <div className="absolute top-0 left-0 md:mt-5 p-8 md:p-[1.7vw] md:px-[8.5vw] w-full flex justify-between items-center z-10">
             {/* LOGO */}
             <div className="text-base md:text-2xl font-bold text-white">
                 GONE.WTF

@@ -7,6 +7,7 @@ import { PublicKey } from '@solana/web3.js';
 import { useProgram } from '@/lib/useProgram';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { salePda } from '@/lib/findPda';
+import InfoSection from "./_components/home/InfoSection";
 
 export default function Home() {
   const [adminKey, setAdminKey] = useState<PublicKey | null>(null);
@@ -27,7 +28,7 @@ export default function Home() {
 
         const acc = await program.account.sale.fetch(salePdaKey);
         console.log('Fetched Sale Account:', acc);
-        
+
         setAdminKey(acc.admin);
       } catch (error) {
         console.error("Error fetching sale account:", error);
@@ -39,29 +40,11 @@ export default function Home() {
   }, [wallet.publicKey, program]);
 
   return (
-    <div className="relative font-sans flex flex-col items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <HeroSection></HeroSection>
-      <BuySection></BuySection>
+    <div className="relative mx-auto max-w-7xl font-sans flex flex-col items-center justify-items-center py-8 pb-20 gap-16">
+      <HeroSection />
+      <InfoSection />
+      <BuySection />
       <AdminControls adminKey={adminKey} />
-
-      {/* Glass Panes */}
-      <div className="absolute inset-0 flex justify-center -z-20">
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[5%] h-screen hidden md:block" />
-        {/* <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[10%] h-screen md:hidden" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[10%] h-screen md:hidden" />
-        <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[10%] h-screen md:hidden" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[10%] h-screen md:hidden" />
-        <span className="mx-[8%]bg-gradient-to-b from-white/5 to-white/0 w-[10%] h-screen md:hidden" />
-        <span className="bg-gradient-to-b from-white/5 to-white/0 w-[10%] h-screen md:hidden" /> */}
-      </div>
     </div>
   );
 }

@@ -1,3 +1,6 @@
+import { SparklesCore } from "@/app/_ui/sparkles";
+import GlassPanes from "./GlassPanes";
+
 export default function BgPannel({
     children
 }: {
@@ -5,8 +8,19 @@ export default function BgPannel({
 }) {
     return (
         <div className="relative">
+
             {/* Background Panel */}
             <div className="panel absolute inset-0 rounded-[20px] h-screen pt-10 -z-50">
+                <SparklesCore
+                    id="tsparticlesfullpage"
+                    background="transparent"
+                    minSize={0.4}
+                    maxSize={1.3}
+                    particleDensity={10}
+                    speed={0.7}
+                    className="w-full h-full"
+                    particleColor="#FFFFFF"
+                />
                 {/* Glow Gradients */}
                 <div className="absolute top-0 -translate-y-1/2 h-full w-2/3 rounded-full bg-glow-left/80 mix-blend-screen blur-[150px] filter" />
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[80%] h-2/3 w-2/3 rounded-full bg-glow-center/70 mix-blend-screen blur-[150px] filter" />
@@ -19,6 +33,7 @@ export default function BgPannel({
                         </clipPath>
                     </defs>
                 </svg>
+                <GlassPanes />
             </div>
             {/* Content Layer */}
             <div className="relative">
