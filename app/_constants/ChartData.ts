@@ -1,7 +1,7 @@
 export const CHART_DATA = {
     "success": true,
     "totalTransactions": 3709,
-    "totalValueInPools": 4450.098560667,
+    "totalValueInPools": 4450.10,
     "uniqueDepositors": 320,
     "volume7d": 12.563208245,
     "txPerHour7d": 0.08928571428571429,

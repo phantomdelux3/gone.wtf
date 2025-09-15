@@ -7,6 +7,8 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
+  YAxis,
+  TooltipProps,
 } from "recharts"
 
 type AreaChartProps<TData extends Record<string, any>> = {
@@ -18,34 +20,39 @@ type AreaChartProps<TData extends Record<string, any>> = {
   strokeWidth?: number
   xTickFormatter?: (value: any) => string
   tooltipFormatter?: (value: any, name: string, props: any) => any
+  className?: string
+  customTooltip?: TooltipProps<any, any>['content'];
 }
 
 export default function AreaChartSimple<TData extends Record<string, any>>({
   data,
   xKey,
   yKey,
-  height = 240,
   colorVar = "var(--foreground)",
   strokeWidth = 2,
   xTickFormatter,
   tooltipFormatter,
+  className,
+  customTooltip: CustomTooltip,
 }: AreaChartProps<TData>) {
   return (
-    <div style={{ width: "100%", height }}>
+    <div className={className} >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
           margin={{ left: 12, right: 12 }}
         >
-          <CartesianGrid vertical={false} stroke={colorVar} strokeOpacity={0.12} />
+          <CartesianGrid vertical={false} horizontal={false} stroke={colorVar} strokeOpacity={0.12} />
           <XAxis
             dataKey={xKey as string}
             tickLine={false}
             axisLine={false}
             tickMargin={8}
             tickFormatter={xTickFormatter}
+            hide={true}
           />
-          <Tooltip formatter={tooltipFormatter} cursor={{ stroke: colorVar, strokeOpacity: 0.2 }} />
+          <YAxis hide={true} />
+          <Tooltip cursor={false} content={CustomTooltip} formatter={tooltipFormatter} />
           <Area
             dataKey={yKey as string}
             type="natural"
