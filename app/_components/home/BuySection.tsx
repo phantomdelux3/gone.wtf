@@ -1,4 +1,3 @@
-import { Spotlight } from "@/app/_ui/spotlight"
 import { BuyForm } from "../web3/BuyForm"
 
 export default function BuySection() {

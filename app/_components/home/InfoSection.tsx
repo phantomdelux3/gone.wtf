@@ -4,7 +4,6 @@ import React from "react";
 import GlobalStatsChart from "@/app/_ui/GlobalStatsChart";
 import { CHART_DATA } from "@/app/_constants/ChartData";
 import { EvervaultCard } from "@/app/_ui/evervault-card";
-import Image from "next/image";
 
 
 const ZKCard = () => (
@@ -41,6 +40,7 @@ const items = [
         muted
         className="rounded-lg w-full h-full object-cover"
         preload="auto"
+        controls={false}
 
       />
     </div>,

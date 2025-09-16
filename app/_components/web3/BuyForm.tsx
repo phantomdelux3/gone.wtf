@@ -56,7 +56,6 @@ export const BuyForm: FC = () => {
       try {
         setSaleError(null);
         if (!program) {
-          // Program not ready yet; keep showing loading state
           return;
         }
         setIsFetchingSale(true);
@@ -87,7 +86,6 @@ export const BuyForm: FC = () => {
     })();
   }, [program]);
 
-  // --- 2. handler ---
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!wallet.publicKey || !program || !sale) return;
@@ -108,7 +106,6 @@ export const BuyForm: FC = () => {
       );
 
       const ix: TransactionInstruction[] = [];
-      // create ATA if not exist
       const info = await program.provider.connection.getAccountInfo(buyerAta);
       if (!info) {
         ix.push(
@@ -173,62 +170,70 @@ export const BuyForm: FC = () => {
   };
 
   return (
-    <form id='buytoken' onSubmit={submit} className="max-w-md space-y-4 z-40">
-      <div className="p-4 rounded">
-        {sale ? (
-          <>
-            <p>Price&nbsp;<b>{sale.rate.div(new BN(LAMPORTS_PER_SOL)).toString()} GONE/SOL</b></p>
-            <p>Min&nbsp;{sale.min.div(new BN(LAMPORTS_PER_SOL)).toString()} SOL • Max&nbsp;{sale.max.div(new BN(LAMPORTS_PER_SOL)).toString()} SOL</p>
-            <p>{sale.remaining.toLocaleString()} GONE remaining</p>
-            {!sale.isActive && <p className="text-red-500">Sale inactive</p>}
-          </>
-        ) : isFetchingSale ? (
-          <>
-            <p>Loading sale…</p>
-          </>
-        ) : saleError ? (
-          <>
-            <p className="text-red-500">{saleError}</p>
-          </>
-        ) : null}
-      </div>
+    <div className='w-fit h-fit relative overflow-hidden'>
+      <div className='absolute top-0 left-0 inset-0 w-36 h-36 bg-glow-right z-10 rounded-full mix-blend-screen blur-[100px] filter'/>
+      <div className='absolute bottom-0 right-0 w-36 h-36 bg-glow-left z-10 rounded-full mix-blend-screen blur-[100px] filter'/>
+      <form id='buytoken' onSubmit={submit} className="relative max-w-md space-y-4 bg-black border border-dark-outline p-6 rounded-xl">
+        <div className="p-4 rounded">
+          {sale ? (
+            <div className='text-sm'>
+              <p>Price&nbsp;<b>{sale.rate.div(new BN(LAMPORTS_PER_SOL)).toString()} GONE/SOL</b></p>
+              <p>Min&nbsp;{sale.min.div(new BN(LAMPORTS_PER_SOL)).toString()} SOL • Max&nbsp;{sale.max.div(new BN(LAMPORTS_PER_SOL)).toString()} SOL</p>
+              <p>{sale.remaining.toLocaleString()} GONE remaining</p>
+              {!sale.isActive && <p className="text-red-500">Sale inactive</p>}
+            </div>
+          ) : isFetchingSale ? (
+            <>
+              <div role='status' className='space-y-2.5 animate-pulse max-w-sm'>
+                <div className='h-3 bg-white/50 rounded-2xl w-48 mb-4'></div>
+                <div className='h-3 bg-white/50 rounded-2xl w-60 mb-4'></div>
+                <div className='h-3 bg-white/50 rounded-2xl max-w-[300px] mb-4'></div>
+              </div>
+            </>
+          ) : saleError ? (
+            <>
+              <p className="text-red-500">{saleError}</p>
+            </>
+          ) : null}
+        </div>
 
-      <label className="block">
-        <span className="text-sm">Amount in SOL</span>
-        <input
-          type="number"
-          min={sale ? sale.min.div(new BN(LAMPORTS_PER_SOL)).toNumber() : 0}
-          max={sale ? sale.max.div(new BN(LAMPORTS_PER_SOL)).toNumber() : 0}
-          step="0.01"
-          value={solInput}
-          onChange={e => setSolInput(e.target.value)}
-          className="mt-1 w-full border rounded p-2"
-          required
-          disabled={!wallet.connected || !sale}
-        />
-      </label>
+        <label className="block">
+          <span className="text-sm">Amount in SOL</span>
+          <input
+            type="number"
+            min={sale ? sale.min.div(new BN(LAMPORTS_PER_SOL)).toNumber() : 0}
+            max={sale ? sale.max.div(new BN(LAMPORTS_PER_SOL)).toNumber() : 0}
+            step="0.01"
+            value={solInput}
+            onChange={e => setSolInput(e.target.value)}
+            className="mt-1 w-full border rounded p-2"
+            required
+            disabled={!wallet.connected || !sale}
+          />
+        </label>
 
-      <p>
-        You will receive&nbsp;
-        <b>{goneOut.toLocaleString()}</b>&nbsp;GONE
-      </p>
+        <p>
+          You will receive&nbsp;
+          <b>{goneOut.toLocaleString()}</b>&nbsp;GONE
+        </p>
 
-      {!wallet.connected ? (
-        <button
-          type="button"
-          onClick={handleConnect}
-          className="w-full bg-indigo-600 text-white py-2 rounded disabled:opacity-50">
-          Connect Wallet
-        </button>
-      ) : (
-        <button
-          type="submit"
-          disabled={!sale || !sale.isActive}
-          className="w-full bg-indigo-600 text-white py-2 rounded disabled:opacity-50">
-          Buy Tokens
-        </button>
-      )}
-    </form>
+        {!wallet.connected ? (
+          <button
+            type="button"
+            onClick={handleConnect}
+            className="w-full bg-indigo-600 text-white py-2 rounded disabled:opacity-50">
+            Connect Wallet
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={!sale || !sale.isActive}
+            className="w-full bg-indigo-600 text-white py-2 rounded disabled:opacity-50">
+            Buy Tokens
+          </button>
+        )}
+      </form>
+    </div>
   );
 };
 

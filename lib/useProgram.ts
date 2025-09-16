@@ -10,8 +10,8 @@ import { GoneTokenSale } from '@/types/gone_token_sale';
 class CustomWallet implements Wallet {
   constructor(
     public publicKey: PublicKey,
-    public signTransaction: <T extends Transaction | VersionedTransaction>(tx: T) => Promise<T>,
-    public signAllTransactions: <T extends Transaction | VersionedTransaction>(txs: T[]) => Promise<T[]>
+    public signTransaction: <T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>,
+    public signAllTransactions: <T extends Transaction | VersionedTransaction>(transactions: T[]) => Promise<T[]>
   ) {}
 
   get payer() {
@@ -31,7 +31,7 @@ class ReadonlyWallet implements Wallet {
   async signTransaction<T extends Transaction | VersionedTransaction>(tx: T): Promise<T> {
     throw new Error('Readonly wallet cannot sign transactions');
   }
-  async signAllTransactions<T extends Transaction | VersionedTransaction>(txs: T[]): Promise<T[]> {
+  async signAllTransactions<T extends Transaction | VersionedTransaction>(transactions: T[]): Promise<T[]> {
     throw new Error('Readonly wallet cannot sign transactions');
   }
 }

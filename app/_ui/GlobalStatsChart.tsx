@@ -42,7 +42,7 @@ export default function GlobalStatsChart({ metric, colorVar = "var(--foreground)
       yKey={metric}
       colorVar={colorVar}
       xTickFormatter={(v) => String(v).slice(5)}
-      tooltipFormatter={(v) => [v as string, metric]}
+      tooltipFormatter={(v) => [v, metric]}
       customTooltip={({ active, payload, label }) => {
         if (active && payload && payload.length) {
           const value = payload[0].value;

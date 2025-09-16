@@ -8,7 +8,6 @@ import { useProgram } from '@/lib/useProgram';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { salePda } from '@/lib/findPda';
 import InfoSection from "./_components/home/InfoSection";
-import { Spotlight } from "./_ui/spotlight";
 
 export default function Home() {
   const [adminKey, setAdminKey] = useState<PublicKey | null>(null);

@@ -11,20 +11,22 @@ import {
   TooltipProps,
 } from "recharts"
 
-type AreaChartProps<TData extends Record<string, any>> = {
+type AreaChartProps<TData extends Record<string, unknown>> = {
   data: TData[]
   xKey: keyof TData
   yKey: keyof TData
   height?: number
   colorVar?: string
   strokeWidth?: number
-  xTickFormatter?: (value: any) => string
-  tooltipFormatter?: (value: any, name: string, props: any) => any
+  xTickFormatter?: (value: string | number) => string
+  tooltipFormatter?: (value: number, name: string) => string | number | [string | number, string]
   className?: string
-  customTooltip?: TooltipProps<any, any>['content'];
+  customTooltip?: TooltipProps<number, string>['content'];
 }
 
-export default function AreaChartSimple<TData extends Record<string, any>>({
+export default function AreaChartSimple<
+  TData extends Record<string, unknown>
+>({
   data,
   xKey,
   yKey,
