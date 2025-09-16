@@ -19,21 +19,35 @@ class CustomWallet implements Wallet {
   }
 }
 
+// Read-only wallet for cases where no real wallet is connected
+class ReadonlyWallet implements Wallet {
+  public publicKey: PublicKey;
+  constructor() {
+    this.publicKey = Keypair.generate().publicKey;
+  }
+  get payer() {
+    return Keypair.generate();
+  }
+  async signTransaction<T extends Transaction | VersionedTransaction>(tx: T): Promise<T> {
+    throw new Error('Readonly wallet cannot sign transactions');
+  }
+  async signAllTransactions<T extends Transaction | VersionedTransaction>(txs: T[]): Promise<T[]> {
+    throw new Error('Readonly wallet cannot sign transactions');
+  }
+}
+
 export function useProgram() {
   const wallet = useWallet();
 
   return useMemo(() => {
-    if (!wallet.publicKey || !wallet.signTransaction || !wallet.signAllTransactions) {
-      return null;
-    }
-
     const conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL!, 'confirmed');
-    const customWallet = new CustomWallet(
-      wallet.publicKey,
-      wallet.signTransaction,
-      wallet.signAllTransactions
+    const provider = new AnchorProvider(
+      conn,
+      wallet.publicKey && wallet.signTransaction && wallet.signAllTransactions
+        ? new CustomWallet(wallet.publicKey, wallet.signTransaction, wallet.signAllTransactions)
+        : new ReadonlyWallet(),
+      {}
     );
-    const provider = new AnchorProvider(conn, customWallet, {});
     
     return new Program<GoneTokenSale>(
       idl as Idl,
