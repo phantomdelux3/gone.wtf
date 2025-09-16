@@ -3,13 +3,13 @@ import BlurBackdrop from "@/app/_ui/BlurBackdrop";
 import React from "react";
 import GlobalStatsChart from "@/app/_ui/GlobalStatsChart";
 import { CHART_DATA } from "@/app/_constants/ChartData";
-import { div } from "motion/react-client";
 import { EvervaultCard } from "@/app/_ui/evervault-card";
+import Image from "next/image";
 
 
 const ZKCard = () => (
   <div>
-    <EvervaultCard text="Zk"/>
+    <EvervaultCard text="Zk" />
   </div>
 );
 
@@ -33,7 +33,17 @@ const items = [
   {
     title: "$GONE",
     description: "Discover the privacy on solana.",
-    header: <ZKCard />,
+    header: <div>
+      <video
+        src={"/vid1.mp4"}
+        autoPlay
+        loop
+        muted
+        className="rounded-lg w-full h-full object-cover"
+        preload="auto"
+
+      />
+    </div>,
     className: "md:col-span-1",
   },
   {

@@ -16,7 +16,7 @@ export default function BgPannel({
                     background="transparent"
                     minSize={0.4}
                     maxSize={1.3}
-                    particleDensity={10}
+                    particleDensity={12}
                     speed={0.7}
                     className="w-full h-full"
                     particleColor="#FFFFFF"
